@@ -1,0 +1,38 @@
+{
+    "error": {
+        "no_space": "別の車両がスペースを占有しています。",
+        "no_access": "このガレージへのアクセス権がありません",
+        "no_vehicles": "現在この場所に車両はありません...",
+        "not_impound": "車両は押収されていません",
+        "not_owned": "この車両は格納できません",
+        "not_correct_type": "このタイプの車両はここに格納できません",
+        "not_enough": "お金が足りません",
+        "vehicle_occupied": "車両が空でないため格納できません",
+        "in_vehicle": "すでに車両に乗っています...",
+        "spawn_failed": "車両の生成中に問題が発生しました",
+        "spawn_in_progress": "車両が配送されるまでお待ちください..."
+    },
+    "success": {
+        "vehicle_parked": "車両を格納しました"
+    },
+    "menu": {
+        "information": "情報",
+        "description": "名前: %s\nナンバー: %s\n押収費: $%s",
+        "body": "ボディ",
+        "engine": "エンジン",
+        "fuel": "燃料",
+        "take_out": "取り出す",
+        "pay_impound": "押収費を支払う",
+        "search": "検索...",
+        "status_out": "使用中",
+        "status_garaged": "格納中",
+        "status_impounded": "押収中",
+        "veh_impounded": "車両が警察に押収されました"
+    },
+    "info": {
+        "car_e": "E - ガレージを開く",
+        "park_e": "E - 車両を格納",
+        "impound_e": "E - インパウンドを開く",
+        "spawning": "車両を生成しています..."
+    }
+}

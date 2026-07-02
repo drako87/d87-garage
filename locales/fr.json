@@ -1,0 +1,38 @@
+{
+    "error": {
+        "no_space": "Un autre véhicule occupe déjà cet emplacement.",
+        "no_access": "Vous n'avez pas accès à ce garage",
+        "no_vehicles": "Vous n'avez actuellement aucun véhicule à cet endroit...",
+        "not_impound": "Votre véhicule n'est pas à la fourrière",
+        "not_owned": "Ce véhicule ne peut pas être stocké",
+        "not_correct_type": "Vous ne pouvez pas stocker ce type de véhicule ici",
+        "not_enough": "Pas assez d'argent",
+        "vehicle_occupied": "Vous ne pouvez pas stocker ce véhicule car il n'est pas vide",
+        "in_vehicle": "Vous êtes déjà dans un véhicule...",
+        "spawn_failed": "Une erreur est survenue lors de la création du véhicule",
+        "spawn_in_progress": "Veuillez patienter pendant la livraison de votre véhicule..."
+    },
+    "success": {
+        "vehicle_parked": "Véhicule stocké"
+    },
+    "menu": {
+        "information": "Informations",
+        "description": "Nom: %s\nPlaque: %s\nFrais de fourrière: $%s",
+        "body": "Carrosserie",
+        "engine": "Moteur",
+        "fuel": "Carburant",
+        "take_out": "Sortir",
+        "pay_impound": "Payer la fourrière",
+        "search": "Rechercher...",
+        "status_out": "DEHORS",
+        "status_garaged": "AU GARAGE",
+        "status_impounded": "EN FOURRIÈRE",
+        "veh_impounded": "Votre véhicule a été mis en fourrière par la police"
+    },
+    "info": {
+        "car_e": "E - Ouvrir le garage",
+        "park_e": "E - Stocker le véhicule",
+        "impound_e": "E - Ouvrir la fourrière",
+        "spawning": "Génération du véhicule..."
+    }
+}

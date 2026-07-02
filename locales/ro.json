@@ -1,0 +1,38 @@
+{
+    "error": {
+        "no_space": "Un alt vehicul a ocupat acest loc.",
+        "no_access": "Nu aveți acces la acest garaj",
+        "no_vehicles": "În prezent, nu aveți vehicule în această locație...",
+        "not_impound": "Vehiculul dvs. nu este în parcare",
+        "not_owned": "Acest vehicul nu poate fi stocat",
+        "not_correct_type": "Nu puteți stoca acest tip de vehicul aici",
+        "not_enough": "Bani insuficienți",
+        "vehicle_occupied": "Nu puteți stoca acest vehicul deoarece nu este gol",
+        "in_vehicle": "Deja sunteți într-un vehicul...",
+        "spawn_failed": "Ceva nu a mers bine la generarea vehiculului",
+        "spawn_in_progress": "Vă rugăm așteptați livrarea vehiculului..."
+    },
+    "success": {
+        "vehicle_parked": "Vehicul stocat"
+    },
+    "menu": {
+        "information": "Informații",
+        "description": "Nume: %s\nNumăr de înmatriculare: %s\nTaxă de parcare: $%s",
+        "body": "Caroserie",
+        "engine": "Motor",
+        "fuel": "Combustibil",
+        "take_out": "Scoateți",
+        "pay_impound": "Plătiți taxa de parcare",
+        "search": "Căutare...",
+        "status_out": "AFARĂ",
+        "status_garaged": "ÎN GARAJ",
+        "status_impounded": "CONFISCAT",
+        "veh_impounded": "Vehiculul dvs. a fost confiscat de poliție"
+    },
+    "info": {
+        "car_e": "E - Deschide garajul",
+        "park_e": "E - Stocați vehiculul",
+        "impound_e": "E - Deschideți parcul auto",
+        "spawning": "Se generează vehiculul..."
+    }
+}

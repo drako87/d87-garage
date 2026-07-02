@@ -1,0 +1,38 @@
+{
+    "error": {
+        "no_space": "Otro vehículo ha ocupado el espacio.",
+        "no_access": "No tienes acceso a este garaje",
+        "no_vehicles": "Actualmente no tienes vehículos en esta ubicación...",
+        "not_impound": "Tu vehículo no está en el depósito",
+        "not_owned": "Este vehículo no puede ser almacenado",
+        "not_correct_type": "No puedes almacenar este tipo de vehículo aquí",
+        "not_enough": "No hay suficiente dinero",
+        "vehicle_occupied": "No puedes almacenar este vehículo porque no está vacío",
+        "in_vehicle": "Ya estás en un vehículo...",
+        "spawn_failed": "Algo salió mal al generar el vehículo",
+        "spawn_in_progress": "Por favor espera mientras se entrega tu vehículo..."
+    },
+    "success": {
+        "vehicle_parked": "Vehículo almacenado"
+    },
+    "menu": {
+        "information": "Información",
+        "description": "Nombre: %s\nMatrícula: %s\nTarifa de depósito: $%s",
+        "body": "Carrocería",
+        "engine": "Motor",
+        "fuel": "Combustible",
+        "take_out": "Sacar",
+        "pay_impound": "Pagar Depósito",
+        "search": "Buscar...",
+        "status_out": "AFUERA",
+        "status_garaged": "EN GARAJE",
+        "status_impounded": "DEPÓSITO",
+        "veh_impounded": "Tu vehículo ha sido embargado por la policía"
+    },
+    "info": {
+        "car_e": "E - Abrir garaje",
+        "park_e": "E - Almacenar vehículo",
+        "impound_e": "E - Abrir depósito",
+        "spawning": "Generando vehículo..."
+    }
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" style="background: transparent !important; background-color: transparent !important;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>d87-garage</title>
+
+    <!--
+        Guaranteed-instant transparent background. This has to be the very
+        first thing the browser parses: it doesn't depend on any network
+        request, so the NUI frame never has a chance to paint anything but
+        transparent, even before style.css or the external fonts below load.
+        (If the Google Fonts / FontAwesome CDN requests are slow or blocked
+        by the client, a render-blocking <link rel="stylesheet"> to them can
+        otherwise leave the whole frame stuck on solid black until they
+        resolve - see the async loading below.)
+    -->
+    <style>
+        html, body {
+            background: transparent !important;
+            background-color: rgba(0, 0, 0, 0) !important;
+        }
+    </style>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Fonts / icons loaded without blocking first paint -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
+</head>
+<body style="background: transparent !important; background-color: transparent !important;">
+    <div id="app" style="display: none; background: transparent !important; background-color: transparent !important;">
+        <div class="garage-container">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-title">
+                    <i class="fa-solid fa-warehouse"></i>
+                    <h1 id="garage-name">Motel Parking</h1>
+                </div>
+                <div class="header-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="search-input" placeholder="Search...">
+                </div>
+                <div class="close-btn" onclick="closeUI()">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+
+            <div class="content">
+                <!-- Vehicle List -->
+                <div class="vehicle-list" id="vehicle-list">
+                    <!-- Javascript populates this -->
+                </div>
+
+                <!-- Vehicle Details -->
+                <div class="vehicle-details" id="vehicle-details">
+                    <div class="empty-state" id="empty-state">
+                        <i class="fa-solid fa-car"></i>
+                        <p>Select a vehicle to view details</p>
+                    </div>
+
+                    <div class="details-content" id="details-content" style="display: none;">
+                        <div class="detail-header">
+                            <h2 id="detail-name">Vehicle Name</h2>
+                            <div class="plate-badge" id="detail-plate">PLATE</div>
+                        </div>
+                        
+                        <div class="status-badge" id="detail-status">IN GARAGE</div>
+
+                        <div class="stats-container">
+                            <div class="stat-row">
+                                <div class="stat-label"><i class="fa-solid fa-gas-pump"></i> <span class="loc-fuel">Fuel</span></div>
+                                <div class="progress-bg"><div class="progress-fill" id="prog-fuel"></div></div>
+                                <div class="stat-val" id="val-fuel">100%</div>
+                            </div>
+                            <div class="stat-row">
+                                <div class="stat-label"><i class="fa-solid fa-oil-can"></i> <span class="loc-engine">Engine</span></div>
+                                <div class="progress-bg"><div class="progress-fill" id="prog-engine"></div></div>
+                                <div class="stat-val" id="val-engine">100%</div>
+                            </div>
+                            <div class="stat-row">
+                                <div class="stat-label"><i class="fa-solid fa-car-side"></i> <span class="loc-body">Body</span></div>
+                                <div class="progress-bg"><div class="progress-fill" id="prog-body"></div></div>
+                                <div class="stat-val" id="val-body">100%</div>
+                            </div>
+                        </div>
+
+                        <div class="impound-info" id="impound-info" style="display: none;">
+                            <i class="fa-solid fa-building-shield"></i>
+                            <div>
+                                <p>Impound Fee</p>
+                                <h3 id="impound-fee">$500</h3>
+                            </div>
+                        </div>
+
+                        <div class="action-btn-container">
+                            <button id="action-btn" class="action-btn" onclick="takeOutSelected()">
+                                TAKE OUT
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

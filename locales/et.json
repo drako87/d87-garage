@@ -1,0 +1,38 @@
+{
+    "error": {
+        "no_space": "Teine sõiduk on selle koha juba hõivanud.",
+        "no_access": "Teil ei ole sellele garaažile juurdepääsu",
+        "no_vehicles": "Teil ei ole hetkel selles asukohas sõidukeid...",
+        "not_impound": "Teie sõiduk ei ole arestimajas",
+        "not_owned": "Seda sõidukit ei saa hoiustada",
+        "not_correct_type": "Te ei saa seda tüüpi sõidukit siin hoiustada",
+        "not_enough": "Raha pole piisavalt",
+        "vehicle_occupied": "Te ei saa seda sõidukit hoiustada, kuna see ei ole tühi",
+        "in_vehicle": "Te olete juba sõidukis...",
+        "spawn_failed": "Sõiduki loomisel läks midagi valesti",
+        "spawn_in_progress": "Palun oodake, kuni sõiduk kohale toimetatakse..."
+    },
+    "success": {
+        "vehicle_parked": "Sõiduk hoiustatud"
+    },
+    "menu": {
+        "information": "Teave",
+        "description": "Nimi: %s\nRegistreerimisnumber: %s\nArestimaja tasu: $%s",
+        "body": "Kere",
+        "engine": "Mootor",
+        "fuel": "Kütus",
+        "take_out": "Välja võtma",
+        "pay_impound": "Maksa trahv",
+        "search": "Otsi...",
+        "status_out": "VÄLJAS",
+        "status_garaged": "GARAAŽIS",
+        "status_impounded": "ARESTITUD",
+        "veh_impounded": "Teie sõiduk on politsei poolt arestitud"
+    },
+    "info": {
+        "car_e": "E - Ava garaaž",
+        "park_e": "E - Hoiusta sõiduk",
+        "impound_e": "E - Ava arestimaja",
+        "spawning": "Sõiduki loomine..."
+    }
+}
