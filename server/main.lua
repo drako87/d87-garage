@@ -214,14 +214,20 @@ lib.callback.register('d87-garage:server:spawnVehicle', function(source, vehicle
         return finish(false, locale('error.spawn_failed'))
     end
 
+    -- Always enforce an explicit lock state: freshly created vehicles can
+    -- otherwise spawn locked by default depending on the model/game build.
     if Config.vehicle.doorsLocked then
         SetVehicleDoorsLocked(entity, 2)
+    else
+        SetVehicleDoorsLocked(entity, 1)
     end
 
     Entity(entity).state:set('vehicleid', vehicleId, false)
     Spawn.SetVehicleStateToOut(vehicleId, entity, vehData[Cols.vehicle])
 
-    return finish(true, netId)
+    -- Send props/plate along so the client can apply full properties and
+    -- warp the player in once the vehicle has actually streamed in for them.
+    return finish(true, { netId = netId, props = props })
 end)
 
 -- Park a vehicle
