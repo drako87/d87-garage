@@ -74,22 +74,14 @@ if D87.Framework == 'qb' or D87.Framework == 'qbx' then
         return false
     end
 
+    -- NOTE: on qbx we intentionally do NOT use qbx_core's own
+    -- `spawnVehicle`/persistence exports. This resource stores and owns
+    -- vehicles in its own `player_vehicles` table, and letting qbx_core
+    -- register the entity in its own vehicle-persistence system caused a
+    -- race in qbx_vehicles/qbx_core (GetVehicleIdByPlate -> trim on a nil
+    -- plate) when the vehicle was later deleted by this resource. Spawning
+    -- it manually keeps it fully outside qbx_core's tracking.
     function Bridge.SpawnVehicle(source, model, coords, props)
-        if D87.Framework == 'qbx' then
-            local success, req_result = pcall(require, '@qbx_core.modules.lib')
-            local qbx_obj = type(req_result) == 'table' and req_result or qbx
-            if qbx_obj and type(qbx_obj) == 'table' and type(qbx_obj.spawnVehicle) == 'function' then
-                local netId, veh = qbx_obj.spawnVehicle({
-                    spawnSource = coords,
-                    model = (props and props.model) or model,
-                    props = props,
-                    warp = Config.vehicle.warpInVehicle and GetPlayerPed(source) or nil,
-                })
-                return netId, veh
-            end
-        end
-
-        -- QBCore fallback
         local hash = type(model) == 'string' and joaat(model) or model
         local veh = CreateVehicleServerSetter(hash, 'automobile', coords.x, coords.y, coords.z, coords.w)
         local attempts = 0
@@ -99,27 +91,27 @@ if D87.Framework == 'qb' or D87.Framework == 'qbx' then
         end
         if not DoesEntityExist(veh) then return nil, nil end
 
-        attempts = 0
-        while not NetworkGetEntityIsNetworked(veh) and attempts < 100 do
-            Wait(10)
-            attempts = attempts + 1
+        if props and props.plate then
+            SetVehicleNumberPlateText(veh, props.plate)
         end
 
         local netId = NetworkGetNetworkIdFromEntity(veh)
-        if Config.vehicle.warpInVehicle then
-            TaskWarpPedIntoVehicle(GetPlayerPed(source), veh, -1)
+        attempts = 0
+        while (not netId or netId == 0) and attempts < 100 do
+            Wait(10)
+            netId = NetworkGetNetworkIdFromEntity(veh)
+            attempts = attempts + 1
         end
+        -- Warping the ped is handled client-side once the vehicle has
+        -- actually streamed in for that player; doing it here immediately
+        -- after CreateVehicleServerSetter is unreliable because the entity
+        -- often hasn't reached the client yet.
         return netId, veh
     end
 
     function Bridge.DeleteVehicle(vehicle)
         if not vehicle or vehicle == 0 or not DoesEntityExist(vehicle) then return end
-
-        if D87.Framework == 'qbx' then
-            exports.qbx_core:DeleteVehicle(vehicle)
-        else
-            DeleteEntity(vehicle)
-        end
+        DeleteEntity(vehicle)
     end
 
     function Bridge.GetVehicleLabel(model)
@@ -217,15 +209,16 @@ elseif D87.Framework == 'esx' then
         end
         if not DoesEntityExist(veh) then return nil, nil end
 
-        attempts = 0
-        while not NetworkGetEntityIsNetworked(veh) and attempts < 100 do
-            Wait(10)
-            attempts = attempts + 1
+        if props and props.plate then
+            SetVehicleNumberPlateText(veh, props.plate)
         end
 
         local netId = NetworkGetNetworkIdFromEntity(veh)
-        if Config.vehicle.warpInVehicle then
-            TaskWarpPedIntoVehicle(GetPlayerPed(source), veh, -1)
+        attempts = 0
+        while (not netId or netId == 0) and attempts < 100 do
+            Wait(10)
+            netId = NetworkGetNetworkIdFromEntity(veh)
+            attempts = attempts + 1
         end
         return netId, veh
     end
@@ -275,7 +268,7 @@ else
         return true
     end
 
-    function Bridge.SpawnVehicle(source, model, coords, _)
+    function Bridge.SpawnVehicle(source, model, coords, props)
         local hash = type(model) == 'string' and joaat(model) or model
         local veh = CreateVehicleServerSetter(hash, 'automobile', coords.x, coords.y, coords.z, coords.w)
         local attempts = 0
@@ -284,14 +277,20 @@ else
             attempts = attempts + 1
         end
         if not DoesEntityExist(veh) then return nil, nil end
-        
+
+        if props and props.plate then
+            SetVehicleNumberPlateText(veh, props.plate)
+        end
+
+        local netId = NetworkGetNetworkIdFromEntity(veh)
         attempts = 0
-        while not NetworkGetEntityIsNetworked(veh) and attempts < 100 do
+        while (not netId or netId == 0) and attempts < 100 do
             Wait(10)
+            netId = NetworkGetNetworkIdFromEntity(veh)
             attempts = attempts + 1
         end
 
-        return NetworkGetNetworkIdFromEntity(veh), veh
+        return netId, veh
     end
 
     function Bridge.DeleteVehicle(vehicle)
