@@ -1,7 +1,6 @@
 :root {
     --accent: #00d4ff;
-    --bg-color: rgba(15, 20, 25, 0.7);
-    --bg-blur: blur(15px);
+    --bg-color: rgba(15, 20, 25, 0.92);
     --border-color: rgba(255, 255, 255, 0.1);
     --card-bg: rgba(255, 255, 255, 0.03);
     --card-hover: rgba(255, 255, 255, 0.08);
@@ -44,9 +43,10 @@ html, body {
 .garage-container {
     width: 900px;
     height: 600px;
+    /* backdrop-filter/blur is unreliable on FiveM's CEF (renders solid black
+       on some GPU/driver combos), so the panel uses a solid-ish translucent
+       background instead of relying on blur for readability. */
     background: var(--bg-color);
-    backdrop-filter: var(--bg-blur);
-    -webkit-backdrop-filter: var(--bg-blur);
     border: 1px solid var(--border-color);
     border-radius: 16px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
