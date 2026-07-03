@@ -78,7 +78,7 @@ RegisterNUICallback('takeOutVehicle', function(data, cb)
     -- Call server to spawn
     lib.callback('d87-garage:server:spawnVehicle', false, function(success, result)
         if success then
-            local netId = result
+            local netId = result.netId
             -- Wait for entity to exist locally
             local veh = lib.waitFor(function()
                 if NetworkDoesEntityExistWithNetworkId(netId) then
@@ -87,6 +87,20 @@ RegisterNUICallback('takeOutVehicle', function(data, cb)
             end, 'Waiting for vehicle spawn', 5000)
 
             if veh and veh > 0 then
+                if result.props then
+                    Bridge.SetVehicleProperties(veh, result.props)
+                end
+
+                -- SetVehicleProperties can restore a saved `lockStatus` from
+                -- the stored props, silently re-locking the vehicle after
+                -- the server already set it. Force it to match config here,
+                -- after props are applied, so it always wins.
+                SetVehicleDoorsLocked(veh, Config.vehicle.doorsLocked and 2 or 1)
+
+                if Config.vehicle.warpInVehicle then
+                    TaskWarpPedIntoVehicle(cache.ped, veh, -1)
+                end
+
                 if Config.vehicle.engineOn then
                     SetVehicleEngineOn(veh, true, true, false)
                 end
