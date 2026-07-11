@@ -69,6 +69,15 @@ local function parkVehicle(vehicle, garageName)
     -- Capture live vehicle properties (fuel, mods, etc.) before doing anything else
     local props = Bridge.GetVehicleProperties(vehicle)
 
+    -- ox_fuel keeps its own authoritative fuel value in the entity statebag.
+    -- Read it directly so the fuel we store always matches what ox_fuel/the
+    -- speedometer actually shows, instead of whatever GetVehicleProperties
+    -- happened to read off the (possibly stale) native.
+    if GetResourceState('ox_fuel') == 'started' then
+        local oxFuel = Entity(vehicle).state.fuel
+        if oxFuel then props.fuelLevel = oxFuel end
+    end
+
     ensureDriverIsOut(vehicle, cache.ped)
 
     lib.callback('d87-garage:server:parkVehicle', false, function(success, result)
@@ -100,7 +109,18 @@ local function setupGarages()
             })
 
             function menuPoint:nearby()
-                if cache.vehicle then return end -- Only accessible on foot
+                if cache.vehicle then
+                    -- Player just took a vehicle out (or hopped in one) while
+                    -- the "[E] Open Garage" prompt was showing. Without this
+                    -- the early return below left the textUI stuck on screen
+                    -- forever, since nothing else ever hides it again.
+                    if self.textUIVisible then
+                        lib.hideTextUI()
+                        self.textUIVisible = false
+                    end
+                    return -- Only accessible on foot
+                end
+
                 drawMarker(self.coords, Config.markers.menu)
 
                 if self.currentDistance < Config.interaction.menuDistance then
@@ -141,7 +161,14 @@ local function setupGarages()
             })
 
             function entryPoint:nearby()
-                if not cache.vehicle then return end -- Only accessible in vehicle
+                if not cache.vehicle then
+                    if self.textUIVisible then
+                        lib.hideTextUI()
+                        self.textUIVisible = false
+                    end
+                    return -- Only accessible in vehicle
+                end
+
                 drawMarker(self.coords, Config.markers.entry)
 
                 if self.currentDistance < Config.interaction.entryDistance then

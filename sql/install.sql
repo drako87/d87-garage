@@ -16,7 +16,12 @@ CREATE TABLE IF NOT EXISTS `player_vehicles` (
     `fuel` INT NOT NULL DEFAULT 100,
     `engine` INT NOT NULL DEFAULT 1000,
     `body` INT NOT NULL DEFAULT 1000,
+    `odometer` INT NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     UNIQUE KEY `plate` (`plate`),
     KEY `citizenid` (`citizenid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- If you already had this table installed before the `odometer` column
+-- existed, run this once to add it (MySQL 8+ / MariaDB 10.5+):
+ALTER TABLE `player_vehicles` ADD COLUMN IF NOT EXISTS `odometer` INT NOT NULL DEFAULT 0;

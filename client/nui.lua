@@ -91,6 +91,12 @@ RegisterNUICallback('takeOutVehicle', function(data, cb)
                     Bridge.SetVehicleProperties(veh, result.props)
                 end
 
+                -- Seed the entity's 'odometer' statebag with the persisted
+                -- distance so d87-hud's speedometer (or any other resource
+                -- reading it) keeps counting up from the right number
+                -- instead of restarting at 0 on every spawn.
+                Entity(veh).state:set('odometer', result.odometer or 0, true)
+
                 -- SetVehicleProperties can restore a saved `lockStatus` from
                 -- the stored props, silently re-locking the vehicle after
                 -- the server already set it. Force it to match config here,

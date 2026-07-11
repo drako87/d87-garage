@@ -126,6 +126,7 @@ lib.callback.register('d87-garage:server:getVehicles', function(source, garageNa
                     fuel = veh.fuel or 100,
                     engine = veh.engine or 1000,
                     body = veh.body or 1000,
+                    odometer = veh.odometer or 0,
                 }
 
                 -- Auto-calculate depot price for OUT vehicles if not set
@@ -223,11 +224,18 @@ lib.callback.register('d87-garage:server:spawnVehicle', function(source, vehicle
     end
 
     Entity(entity).state:set('vehicleid', vehicleId, false)
+
+    -- Seed the persisted odometer onto the fresh entity so d87-hud (or any
+    -- other resource reading the 'odometer' statebag) resumes counting from
+    -- where this vehicle left off instead of restarting at 0.
+    local odometer = vehData.odometer or 0
+    Entity(entity).state:set('odometer', odometer, true)
+
     Spawn.SetVehicleStateToOut(vehicleId, entity, vehData[Cols.vehicle])
 
     -- Send props/plate along so the client can apply full properties and
     -- warp the player in once the vehicle has actually streamed in for them.
-    return finish(true, { netId = netId, props = props })
+    return finish(true, { netId = netId, props = props, odometer = odometer })
 end)
 
 -- Park a vehicle
@@ -258,10 +266,17 @@ lib.callback.register('d87-garage:server:parkVehicle', function(source, netId, g
         return false, locale('error.not_owned')
     end
 
+    -- Read the live odometer off the entity before it's deleted, so the
+    -- travelled distance survives being stored/taken out again later.
+    local odometer = Entity(entity).state.odometer
+
     -- Update DB
     Storage.SetVehicleGarage(vehData[Cols.id], garageName, VehicleState.GARAGED)
     if props then
         Storage.SetVehicleProps(vehData[Cols.id], props)
+    end
+    if odometer then
+        Storage.SetVehicleOdometer(vehData[Cols.id], odometer)
     end
 
     -- The DB writes above are async and take a moment, so re-check the entity

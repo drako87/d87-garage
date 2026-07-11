@@ -98,13 +98,34 @@ function Storage.SetVehicleDepotPrice(id, depotPrice)
     return MySQL.update.await(query, { depotPrice, id, VehicleState.GARAGED })
 end
 
+---Saves the raw properties AND syncs the standalone fuel/engine/body columns
+---used by the garage list/details UI from those same properties, so what
+---the menu shows always matches what was actually captured off the vehicle
+---(previously these columns were never touched after row creation, so the
+---UI kept showing stale/default values while the real data only lived
+---inside the `mods` json).
 ---@param id integer
 ---@param props table
 ---@return integer numRowsAffected
 function Storage.SetVehicleProps(id, props)
     local propsStr = json.encode(props)
-    local query = 'UPDATE ' .. Config.database.table .. ' SET ' .. Cols.props .. ' = ? WHERE ' .. Cols.id .. ' = ?'
-    return MySQL.update.await(query, { propsStr, id })
+    local fuel = props.fuelLevel or props.fuel or 100
+    local engine = props.engineHealth or 1000
+    local body = props.bodyHealth or 1000
+
+    local query = 'UPDATE ' .. Config.database.table .. ' SET '
+        .. Cols.props .. ' = ?, fuel = ?, engine = ?, body = ? WHERE ' .. Cols.id .. ' = ?'
+    return MySQL.update.await(query, { propsStr, fuel, engine, body, id })
+end
+
+---Persists the vehicle's total distance travelled (km), read from its
+---'odometer' entity statebag right before it's parked/deleted.
+---@param id integer
+---@param odometer number
+---@return integer numRowsAffected
+function Storage.SetVehicleOdometer(id, odometer)
+    local query = 'UPDATE ' .. Config.database.table .. ' SET odometer = ? WHERE ' .. Cols.id .. ' = ?'
+    return MySQL.update.await(query, { odometer, id })
 end
 
 ---@async

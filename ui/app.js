@@ -62,6 +62,10 @@ function getStatusText(state) {
     return 'UNKNOWN';
 }
 
+function formatOdometer(km) {
+    return Math.floor(km || 0).toLocaleString('en-US') + ' km';
+}
+
 function renderVehicleList(vehicles) {
     const list = document.getElementById('vehicle-list');
     list.innerHTML = '';
@@ -104,6 +108,7 @@ function selectVehicle(v) {
     // Populate data
     document.getElementById('detail-name').innerText = v.label;
     document.getElementById('detail-plate').innerText = v.plate;
+    document.getElementById('detail-odo').innerHTML = `<i class="fa-solid fa-gauge-high"></i> ${formatOdometer(v.odometer)}`;
     
     const statusEl = document.getElementById('detail-status');
     statusEl.innerText = getStatusText(v.state);

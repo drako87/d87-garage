@@ -246,14 +246,31 @@ html, body {
     border: 2px solid #999;
 }
 
+.status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
 .status-badge {
     display: inline-block;
     padding: 6px 12px;
     border-radius: 6px;
     font-size: 14px;
     font-weight: 600;
-    margin-bottom: 30px;
     width: fit-content;
+}
+
+.odo-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-sec);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: monospace;
+    letter-spacing: 0.3px;
 }
 
 .stats-container {
