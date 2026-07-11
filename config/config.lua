@@ -25,7 +25,7 @@ return {
     ---------------------------------------------------------------------------
     vehicle = {
         engineOn = true,                    -- Engine on when taking vehicle out
-        doorsLocked = false,                -- Doors locked when taking vehicle out
+        doorsLocked = true,                 -- Doors locked when taking vehicle out
         warpInVehicle = true,               -- Warp player into vehicle on take out
         distanceCheck = 5.0,                -- Min clear distance for spawn point (prevents stacking)
         spawnDistanceCheck = 10.0,          -- Max distance player can be from menu point to spawn
@@ -70,15 +70,15 @@ return {
             type   = 36,
             color  = { r = 50, g = 255, b = 100, a = 180 },    -- Green
             size   = vec3(1.5, 1.5, 0.5),
-            bob    = false,
-            rotate = false,
+            bob    = true,
+            rotate = true,
         },
         exit = {
             type   = 36,
             color  = { r = 255, g = 150, b = 0, a = 180 },     -- Orange
             size   = vec3(1.5, 1.5, 0.5),
-            bob    = false,
-            rotate = false,
+            bob    = true,
+            rotate = true,
         },
     },
 
@@ -142,8 +142,8 @@ return {
             vehicleType = VehicleType.CAR,
             blip        = { name = 'Public Parking' },
             menu        = vec4(275.58, -344.74, 45.17, 70.0),
-            entry       = vec4(271.26, -342.32, 44.7, 159.97),
-            exit        = vec4(273.0, -340.0, 44.7, 70.0),
+            entry       = vec4(270.51, -343.06, 43.92, 339.86),
+            exit        = vec4(285.41, -348.8, 43.98, 158.59),
         },
 
         sapcounsel = {
@@ -162,8 +162,8 @@ return {
             vehicleType = VehicleType.CAR,
             blip        = { name = 'Public Parking' },
             menu        = vec4(-1160.46, -741.04, 19.95, 41.26),
-            entry       = vec4(-1165.38, -747.65, 18.94, 40.45),
-            exit        = vec4(-1162.0, -744.0, 18.94, 40.45),
+            entry       = vec4(-1170.01, -734.78, 19.13, 217.33),
+            exit        = vec4(-1169.67, -747.2, 18.45, 310.12),
         },
 
         caears24 = {
@@ -172,8 +172,8 @@ return {
             vehicleType = VehicleType.CAR,
             blip        = { name = 'Public Parking' },
             menu        = vec4(68.08, 13.15, 69.21, 160.44),
-            entry       = vec4(72.61, 11.72, 68.47, 157.59),
-            exit        = vec4(70.0, 15.0, 68.47, 157.59),
+            entry       = vec4(68.58, 24.18, 68.5, 72.06),
+            exit        = vec4(69.15, 17.84, 68.21, 249.59),
         },
 
         littleseoul = {
@@ -192,8 +192,8 @@ return {
             vehicleType = VehicleType.CAR,
             blip        = { name = 'Public Parking' },
             menu        = vec4(363.85, 297.97, 103.5, 341.39),
-            entry       = vec4(367.41, 297.02, 103.2, 341.08),
-            exit        = vec4(365.0, 299.0, 103.2, 341.08),
+            entry       = vec4(363.73, 284.03, 102.38, 159.33),
+            exit        = vec4(374.9, 288.95, 102.23, 71.02),
         },
 
         airportp = {
@@ -202,8 +202,8 @@ return {
             vehicleType = VehicleType.CAR,
             blip        = { name = 'Public Parking' },
             menu        = vec4(-796.07, -2023.26, 9.17, 55.18),
-            entry       = vec4(-793.35, -2020.62, 8.51, 58.42),
-            exit        = vec4(-790.0, -2018.0, 8.51, 58.42),
+            entry       = vec4(-787.38, -2032.45, 7.87, 244.88),
+            exit        = vec4(-786.97, -2025.12, 7.87, 53.29),
         },
 
         beachp = {
@@ -221,9 +221,69 @@ return {
             type        = GarageType.PUBLIC,
             vehicleType = VehicleType.CAR,
             blip        = { name = 'Public Parking' },
-            menu        = vec4(218.66, -804.08, 30.75, 65.69),
-            entry       = vec4(229.33, -805.01, 30.54, 156.79),
-            exit        = vec4(224.0, -800.0, 30.54, 156.79),
+            menu        = vec4(215.71, -810.16, 29.73, 335.85),
+            entry       = vec4(215.12, -791.53, 29.84, 160.81),
+            exit        = vec4(229.25, -800.83, 29.57, 160.33),
+        },
+
+        vespucciparking = {
+            label       = 'Vespucci Parking',
+            type        = GarageType.PUBLIC,
+            vehicleType = VehicleType.CAR,
+            blip        = { name = 'Public Parking' },
+            menu        = vec4(-281.17, -888.25, 30.32, 154.2),
+            entry       = vec4(-293.38, -891.37, 30.08, 79.69),
+            exit        = vec4(-303.39, -893.2, 30.08, 257.12),
+        },
+
+        senorawayparking = {
+            label       = 'Señora Way Parking',
+            type        = GarageType.PUBLIC,
+            vehicleType = VehicleType.CAR,
+            blip        = { name = 'Public Parking' },
+            menu        = vec4(2542.51, 2628.08, 36.94, 279.28),
+            entry       = vec4(2539.19, 2619.38, 36.94, 291.7),
+            exit        = vec4(2540.72, 2634.79, 36.94, 282.11),
+        },
+
+        marinadriveparking = {
+            label       = 'Marina Drive Parking',
+            type        = GarageType.PUBLIC,
+            vehicleType = VehicleType.CAR,
+            blip        = { name = 'Public Parking' },
+            menu        = vec4(1508.72, 3768.47, 33.14, 195.63),
+            entry       = vec4(1505.52, 3763.51, 33.0, 39.63),
+            exit        = vec4(1500.86, 3762.16, 32.98, 213.96),
+        },
+
+        paletostationparking = {
+            label       = 'Paleto Station Parking',
+            type        = GarageType.PUBLIC,
+            vehicleType = VehicleType.CAR,
+            blip        = { name = 'Public Parking' },
+            menu        = vec4(141.63, 6616.05, 31.09, 350.51),
+            entry       = vec4(136.36, 6619.27, 30.8, 146.69),
+            exit        = vec4(135.17, 6607.58, 30.85, 182.85),
+        },
+
+        greatoceanparking = {
+            label       = 'Great Ocean Parking',
+            type        = GarageType.PUBLIC,
+            vehicleType = VehicleType.CAR,
+            blip        = { name = 'Public Parking' },
+            menu        = vec4(-276.8, 6073.59, 30.43, 186.01),
+            entry       = vec4(-273.72, 6062.57, 30.47, 232.35),
+            exit        = vec4(-284.55, 6050.96, 30.51, 45.38),
+        },
+
+        inesenoparking = {
+            label       = 'Ineseno Road Parking',
+            type        = GarageType.PUBLIC,
+            vehicleType = VehicleType.CAR,
+            blip        = { name = 'Public Parking' },
+            menu        = vec4(-3047.86, 610.06, 6.21, 190.38),
+            entry       = vec4(-3044.49, 605.28, 6.33, 102.82),
+            exit        = vec4(-3042.47, 599.41, 6.53, 289.38),
         },
 
         -- =================================================================
