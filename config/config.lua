@@ -25,7 +25,7 @@ return {
     ---------------------------------------------------------------------------
     vehicle = {
         engineOn = true,                    -- Engine on when taking vehicle out
-        doorsLocked = true,                 -- Doors locked when taking vehicle out
+        doorsLocked = false,                -- Doors locked when taking vehicle out
         warpInVehicle = true,               -- Warp player into vehicle on take out
         distanceCheck = 5.0,                -- Min clear distance for spawn point (prevents stacking)
         spawnDistanceCheck = 10.0,          -- Max distance player can be from menu point to spawn
