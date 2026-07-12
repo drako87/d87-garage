@@ -13,6 +13,7 @@ ox_lib 'locale'
 shared_scripts {
     '@ox_lib/init.lua',
     'shared/enums.lua',
+    'shared/vehicleclass.lua',
     'bridge/loader.lua',
 }
 

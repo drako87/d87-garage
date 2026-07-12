@@ -83,7 +83,12 @@ if D87.Framework == 'qb' or D87.Framework == 'qbx' then
     -- it manually keeps it fully outside qbx_core's tracking.
     function Bridge.SpawnVehicle(source, model, coords, props)
         local hash = type(model) == 'string' and joaat(model) or model
-        local veh = CreateVehicleServerSetter(hash, 'automobile', coords.x, coords.y, coords.z, coords.w)
+        -- Use the model's real class (car/bike/boat/heli/plane) instead of a
+        -- hardcoded 'automobile' type, otherwise motorcycles get created
+        -- with the wrong pop-type and can end up stuck in a locked state
+        -- regardless of Config.vehicle.doorsLocked.
+        local spawnType = D87.GetVehicleSpawnType(hash)
+        local veh = CreateVehicleServerSetter(hash, spawnType, coords.x, coords.y, coords.z, coords.w)
         local attempts = 0
         while not DoesEntityExist(veh) and attempts < 100 do
             Wait(10)
@@ -201,7 +206,12 @@ elseif D87.Framework == 'esx' then
 
     function Bridge.SpawnVehicle(source, model, coords, props)
         local hash = type(model) == 'string' and joaat(model) or model
-        local veh = CreateVehicleServerSetter(hash, 'automobile', coords.x, coords.y, coords.z, coords.w)
+        -- Use the model's real class (car/bike/boat/heli/plane) instead of a
+        -- hardcoded 'automobile' type, otherwise motorcycles get created
+        -- with the wrong pop-type and can end up stuck in a locked state
+        -- regardless of Config.vehicle.doorsLocked.
+        local spawnType = D87.GetVehicleSpawnType(hash)
+        local veh = CreateVehicleServerSetter(hash, spawnType, coords.x, coords.y, coords.z, coords.w)
         local attempts = 0
         while not DoesEntityExist(veh) and attempts < 100 do
             Wait(10)
@@ -270,7 +280,12 @@ else
 
     function Bridge.SpawnVehicle(source, model, coords, props)
         local hash = type(model) == 'string' and joaat(model) or model
-        local veh = CreateVehicleServerSetter(hash, 'automobile', coords.x, coords.y, coords.z, coords.w)
+        -- Use the model's real class (car/bike/boat/heli/plane) instead of a
+        -- hardcoded 'automobile' type, otherwise motorcycles get created
+        -- with the wrong pop-type and can end up stuck in a locked state
+        -- regardless of Config.vehicle.doorsLocked.
+        local spawnType = D87.GetVehicleSpawnType(hash)
+        local veh = CreateVehicleServerSetter(hash, spawnType, coords.x, coords.y, coords.z, coords.w)
         local attempts = 0
         while not DoesEntityExist(veh) and attempts < 100 do
             Wait(10)
