@@ -14,12 +14,14 @@ D87 = D87 or {}
 ---@return string spawnType -- 'automobile' | 'bike' | 'boat' | 'heli' | 'plane'
 function D87.GetVehicleSpawnType(model)
     local hash = type(model) == 'string' and joaat(model) or model
-    local class = GetVehicleClassFromName(hash)
 
-    if class == 8 or class == 13 then return 'bike' end  -- Motorcycles / Cycles
-    if class == 14 then return 'boat' end                 -- Boats
-    if class == 15 then return 'heli' end                 -- Helicopters
-    if class == 16 then return 'plane' end                -- Planes
+    -- GetVehicleClassFromName is client-only; estos IsThisModelA* sí
+    -- funcionan en el servidor porque solo leen la info estática del
+    -- modelo, no requieren que exista ninguna entidad.
+    if IsThisModelABike(hash) then return 'bike' end
+    if IsThisModelABoat(hash) then return 'boat' end
+    if IsThisModelAHeli(hash) then return 'heli' end
+    if IsThisModelAPlane(hash) then return 'plane' end
 
     return 'automobile'
 end
