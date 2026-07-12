@@ -87,7 +87,7 @@ if D87.Framework == 'qb' or D87.Framework == 'qbx' then
         -- hardcoded 'automobile' type, otherwise motorcycles get created
         -- with the wrong pop-type and can end up stuck in a locked state
         -- regardless of Config.vehicle.doorsLocked.
-        local spawnType = D87.GetVehicleSpawnType(hash)
+        local spawnType = D87.GetVehicleSpawnType(model)
         local veh = CreateVehicleServerSetter(hash, spawnType, coords.x, coords.y, coords.z, coords.w)
         local attempts = 0
         while not DoesEntityExist(veh) and attempts < 100 do
@@ -210,7 +210,7 @@ elseif D87.Framework == 'esx' then
         -- hardcoded 'automobile' type, otherwise motorcycles get created
         -- with the wrong pop-type and can end up stuck in a locked state
         -- regardless of Config.vehicle.doorsLocked.
-        local spawnType = D87.GetVehicleSpawnType(hash)
+        local spawnType = D87.GetVehicleSpawnType(model)
         local veh = CreateVehicleServerSetter(hash, spawnType, coords.x, coords.y, coords.z, coords.w)
         local attempts = 0
         while not DoesEntityExist(veh) and attempts < 100 do
@@ -284,7 +284,7 @@ else
         -- hardcoded 'automobile' type, otherwise motorcycles get created
         -- with the wrong pop-type and can end up stuck in a locked state
         -- regardless of Config.vehicle.doorsLocked.
-        local spawnType = D87.GetVehicleSpawnType(hash)
+        local spawnType = D87.GetVehicleSpawnType(model)
         local veh = CreateVehicleServerSetter(hash, spawnType, coords.x, coords.y, coords.z, coords.w)
         local attempts = 0
         while not DoesEntityExist(veh) and attempts < 100 do
